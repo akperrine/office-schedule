@@ -1,0 +1,11 @@
+CREATE TABLE users (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    username VARCHAR UNIQUE NOT NULL,
+    eamil VARCHAR UNIQUE NOT NULL
+);
+
+INSERT INTO products (name, price, stock_quantity)
+VALUES ('Laptop', 1200.00, 50);
+
+INSERT INTO users (username, email) 
+VALUES ('akperrine', 'test@email.com');
