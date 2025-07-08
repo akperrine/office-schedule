@@ -3,6 +3,7 @@ import { AppointmentInfo } from "../AppointmentInfo";
 import { ScheduleBlock } from "../schedule-block/schedule-block";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CommonModule } from "@angular/common";
+import "./scheduler.css";
 
 @Component({
   selector: "app-scheduler",
@@ -10,13 +11,15 @@ import { CommonModule } from "@angular/common";
   template: `
     <section>
       <h2>Appointments</h2>
-      <schedule-block
-        *ngFor="let appointment of appointments"
-        [appointment]="appointment"
-      ></schedule-block>
+      <div class="schedule-block-container">
+        <schedule-block
+          *ngFor="let appointment of appointments"
+          [appointment]="appointment"
+        ></schedule-block>
+      </div>
     </section>
   `,
-  styles: ``,
+  styleUrls: ["./scheduler.css"],
 })
 export class Scheduler implements OnInit {
   appointments: AppointmentInfo[] = [];

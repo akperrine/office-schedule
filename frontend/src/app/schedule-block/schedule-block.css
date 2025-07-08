@@ -1,18 +1,16 @@
 .appointment-card {
-  /* Card basic styling */
-  background-color: #f8fcfd; /* A light, pleasant blue-green background */
-  border: 1px solid #d0e8f2; /* Slightly darker border to match */
-  border-radius: 12px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  margin: 15px; /* Space around each card */
+  background-color: #f8fcfd;
+  border: 1px solid #d0e8f2;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 15px;
   padding: 20px;
-  max-width: 350px; /* Max width for better readability on larger screens */
-  width: 100%; /* Ensure it takes full width on smaller screens */
-  font-family: "Inter", sans-serif; /* Use Inter font */
+  max-width: 350px;
+  width: 100%;
+  font-family: "Inter", sans-serif;
   display: flex;
   flex-direction: column;
-  /* Removed justify-content: space-between as footer is gone, content will naturally flow */
-  min-height: 150px; /* Ensure a minimum height for consistency */
+  min-height: 150px;
 }
 
 .card-header {
@@ -20,28 +18,28 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 15px;
-  flex-wrap: wrap; /* Allow wrapping on small screens */
+  flex-wrap: wrap;
 }
 
 .card-title {
-  font-size: 1.5em; /* Larger title */
-  color: #2c3e50; /* Darker color for better contrast */
+  font-size: 1.5em;
+  color: #2c3e50;
   margin: 0;
-  flex-grow: 1; /* Allows title to take available space */
-  padding-right: 10px; /* Space between title and time/day */
+  flex-grow: 1;
+  padding-right: 10px;
 }
 
 .card-time-day {
   display: flex;
-  flex-direction: column; /* Stack time and day */
-  align-items: flex-end; /* Align to the right */
+  flex-direction: column;
+  align-items: flex-end;
   font-size: 0.9em;
-  color: #5a6a7a; /* Slightly darker grey for time/day */
-  white-space: nowrap; /* Prevent time/day from wrapping */
+  color: #5a6a7a;
+  white-space: nowrap;
 }
 
 .card-day {
-  font-weight: 600; /* Bold day */
+  font-weight: 600;
   color: #4a5a6a;
 }
 
@@ -50,19 +48,16 @@
 }
 
 .card-body {
-  margin-bottom: 0; /* No footer, so no bottom margin needed here */
+  margin-bottom: 0;
 }
 
 .card-description {
   font-size: 1em;
-  color: #4a5a6a; /* Adjusted color for description */
+  color: #4a5a6a;
   line-height: 1.5;
   margin: 0;
 }
 
-/* Removed .card-footer and .card-id styles as they are no longer needed */
-
-/* Responsive adjustments */
 @media (max-width: 480px) {
   .appointment-card {
     margin: 10px;
@@ -70,7 +65,7 @@
   }
 
   .card-header {
-    flex-direction: column; /* Stack title and time/day on very small screens */
+    flex-direction: column;
     align-items: flex-start;
   }
 
