@@ -1,0 +1,85 @@
+.appointment-card {
+  /* Card basic styling */
+  background-color: #f8fcfd; /* A light, pleasant blue-green background */
+  border: 1px solid #d0e8f2; /* Slightly darker border to match */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin: 15px; /* Space around each card */
+  padding: 20px;
+  max-width: 350px; /* Max width for better readability on larger screens */
+  width: 100%; /* Ensure it takes full width on smaller screens */
+  font-family: "Inter", sans-serif; /* Use Inter font */
+  display: flex;
+  flex-direction: column;
+  /* Removed justify-content: space-between as footer is gone, content will naturally flow */
+  min-height: 150px; /* Ensure a minimum height for consistency */
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+.card-title {
+  font-size: 1.5em; /* Larger title */
+  color: #2c3e50; /* Darker color for better contrast */
+  margin: 0;
+  flex-grow: 1; /* Allows title to take available space */
+  padding-right: 10px; /* Space between title and time/day */
+}
+
+.card-time-day {
+  display: flex;
+  flex-direction: column; /* Stack time and day */
+  align-items: flex-end; /* Align to the right */
+  font-size: 0.9em;
+  color: #5a6a7a; /* Slightly darker grey for time/day */
+  white-space: nowrap; /* Prevent time/day from wrapping */
+}
+
+.card-day {
+  font-weight: 600; /* Bold day */
+  color: #4a5a6a;
+}
+
+.card-time {
+  color: #6a7a8a;
+}
+
+.card-body {
+  margin-bottom: 0; /* No footer, so no bottom margin needed here */
+}
+
+.card-description {
+  font-size: 1em;
+  color: #4a5a6a; /* Adjusted color for description */
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Removed .card-footer and .card-id styles as they are no longer needed */
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .appointment-card {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .card-header {
+    flex-direction: column; /* Stack title and time/day on very small screens */
+    align-items: flex-start;
+  }
+
+  .card-title {
+    padding-right: 0;
+    margin-bottom: 5px;
+  }
+
+  .card-time-day {
+    align-items: flex-start;
+  }
+}

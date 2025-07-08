@@ -11,8 +11,8 @@ import { CommonModule } from "@angular/common";
     <section>
       <h2>Appointments</h2>
       <schedule-block
-        *ngFor="let schBlock of appointments"
-        [block]="schBlock"
+        *ngFor="let appointment of appointments"
+        [appointment]="appointment"
       ></schedule-block>
     </section>
   `,
