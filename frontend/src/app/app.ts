@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
-import { Home } from "./home/home";
+import { Scheduler } from "./scheduler/scheduler";
 
 @Component({
   selector: "app-root",
-  imports: [Home],
+  imports: [Scheduler],
   template: ` <main>
     <header class="brand-name">
       <img
@@ -13,12 +13,11 @@ import { Home } from "./home/home";
         aria-hidden="true"
       />
     </header>
-    <section class="content">
-      <app-home></app-home>
-    </section>
+    <app-scheduler></app-scheduler>
+    <section class="content"></section>
   </main>`,
   styleUrls: ["./app.css"],
 })
 export class App {
-  title = "homes";
+  title = "scheduler-app";
 }
