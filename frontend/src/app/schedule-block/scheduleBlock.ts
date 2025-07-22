@@ -16,7 +16,7 @@ import { AppointmentInfo } from "../AppointmentInfo";
       <p class="card-description">{{ appointment.description }}</p>
     </div>
   </section>`,
-  styleUrls: ["./schedule-block.css"],
+  styleUrls: ["./scheduleBlock.css"],
 })
 export class ScheduleBlock {
   @Input() appointment!: AppointmentInfo;

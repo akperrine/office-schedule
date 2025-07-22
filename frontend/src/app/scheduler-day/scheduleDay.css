@@ -1,0 +1,45 @@
+.day-column {
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fcfd;
+  border: 1px solid #d0e8f2;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  margin: 10px;
+  flex-grow: 1;
+  flex-basis: 0;
+  min-width: 280px;
+  max-width: 350px;
+  font-family: "Inter", sans-serif;
+}
+
+.day-header {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #a7d9f7;
+}
+
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.no-appointments {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  padding: 10px 0;
+}
+
+@media (max-width: 768px) {
+  .day-column {
+    margin: 10px auto;
+    max-width: 90%;
+  }
+}

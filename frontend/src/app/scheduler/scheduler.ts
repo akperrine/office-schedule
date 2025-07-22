@@ -1,28 +1,31 @@
 import { Component, OnInit } from "@angular/core";
 import { AppointmentInfo } from "../AppointmentInfo";
-import { ScheduleBlock } from "../schedule-block/schedule-block";
+import { ScheduleBlock } from "../schedule-block/scheduleBlock";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import "./scheduler.css";
+import { ScheduleDay } from "../scheduler-day/schedulerDay";
 
 @Component({
   selector: "app-scheduler",
-  imports: [ScheduleBlock, CommonModule],
+  imports: [CommonModule, ScheduleDay],
   template: `
     <section>
       <h2>Appointments</h2>
       <div class="schedule-block-container">
-        <schedule-block
-          *ngFor="let appointment of appointments"
-          [appointment]="appointment"
-        ></schedule-block>
+        <scheduler-day
+          *ngFor="let day of daysOfWeek"
+          [dayName]="day"
+          [appointments]="weeklyAppointments[day]"
+        ></scheduler-day>
       </div>
     </section>
   `,
   styleUrls: ["./scheduler.css"],
 })
 export class Scheduler implements OnInit {
-  appointments: AppointmentInfo[] = [];
+  // appointments: AppointmentInfo[] = [];
+  weeklyAppointments: { [key: string]: AppointmentInfo[] } = {};
   daysOfWeek: string[] = [
     "Monday",
     "Tuesday",
@@ -50,13 +53,27 @@ export class Scheduler implements OnInit {
   }
 
   loadMockAppointments(): void {
-    this.appointments = [
+    //    this.daysOfWeek.forEach(day => {
+    //   this.weeklyAppointments[day] = [];
+    // });
+    this.daysOfWeek.forEach((day) => {
+      this.weeklyAppointments[day] = [];
+    });
+
+    const mockAppointments = [
       {
         id: this.nextId++,
         day: "Monday",
         time: "09:00 AM",
         title: "Team Stand-up",
         description: "Daily sync meeting",
+      },
+      {
+        id: this.nextId++,
+        day: "Monday",
+        time: "10:00 AM",
+        title: "Break out Room",
+        description: "Follow-up meeting",
       },
       {
         id: this.nextId++,
@@ -87,5 +104,16 @@ export class Scheduler implements OnInit {
         description: "Dentist check-up",
       },
     ];
+
+    // allAppointments.forEach(appt => {
+    //   if (this.weeklyAppointments[appt.day]) {
+    //     this.weeklyAppointments[appt.day].push(appt);
+    //   }
+    // });
+    mockAppointments.forEach((appt) => {
+      if (this.weeklyAppointments[appt.day]) {
+        this.weeklyAppointments[appt.day].push(appt);
+      }
+    });
   }
 }
