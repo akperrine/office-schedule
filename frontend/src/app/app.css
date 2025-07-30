@@ -1,11 +1,23 @@
 :host {
   --content-padding: 10px;
 }
+
+.nav-bar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-shadow: 0px 5px 25px var(--shadow-color);
+}
+
+a {
+  margin: 10px;
+  padding: var(--content-padding);
+}
+
 header {
   display: block;
   height: 60px;
   padding: var(--content-padding);
-  box-shadow: 0px 5px 25px var(--shadow-color);
 }
 .content {
   padding: var(--content-padding);

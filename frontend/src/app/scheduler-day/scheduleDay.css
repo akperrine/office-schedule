@@ -6,11 +6,11 @@
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   padding: 20px;
-  margin: 10px;
+  /* margin: 10px; */
   flex-grow: 1;
   flex-basis: 0;
-  min-width: 280px;
-  max-width: 350px;
+  min-width: 80px;
+  max-width: 100px;
   font-family: "Inter", sans-serif;
 }
 

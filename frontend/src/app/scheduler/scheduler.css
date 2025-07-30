@@ -1,6 +1,6 @@
 .schedule-block-container {
   background-color: var(--primary-color);
-  margin: 150px;
+  margin: 100px;
   padding: 50px;
   display: flex;
   flex-wrap: wrap;

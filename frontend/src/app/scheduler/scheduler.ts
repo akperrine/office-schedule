@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import "./scheduler.css";
 import { ScheduleDay } from "../scheduler-day/schedulerDay";
+import { UserService } from "../services/userService";
 
 @Component({
   selector: "app-scheduler",
@@ -18,6 +19,7 @@ import { ScheduleDay } from "../scheduler-day/schedulerDay";
           [dayName]="day"
           [appointments]="weeklyAppointments[day]"
         ></scheduler-day>
+        <button (click)="loadUsers()">Get Users</button>
       </div>
     </section>
   `,
@@ -37,8 +39,10 @@ export class Scheduler implements OnInit {
   ];
   appointmentForm: FormGroup;
   nextId: number = 1;
+  users: any[] = [];
+  // userService;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private userSerivice: UserService) {
     // Initialize the form with default values and validation rules
     this.appointmentForm = this.fb.group({
       day: ["", Validators.required],
@@ -48,14 +52,29 @@ export class Scheduler implements OnInit {
     });
   }
 
+  loadUsers() {
+    console.log("clicked");
+    // this.userService.getUsers();
+    this.userSerivice.getUsers().subscribe({
+      next: (data: any[]) => {
+        // 'data' here will be the actual array of users
+        this.users = data; // Assign the fetched data to the users array
+        console.log("Users loaded successfully:", this.users);
+      },
+      error: (err: Error) => {
+        console.error("Error loading users:", err);
+      },
+      complete: () => {
+        console.log("User fetching complete.");
+      },
+    });
+  }
+
   ngOnInit(): void {
     this.loadMockAppointments();
   }
 
   loadMockAppointments(): void {
-    //    this.daysOfWeek.forEach(day => {
-    //   this.weeklyAppointments[day] = [];
-    // });
     this.daysOfWeek.forEach((day) => {
       this.weeklyAppointments[day] = [];
     });
@@ -105,11 +124,6 @@ export class Scheduler implements OnInit {
       },
     ];
 
-    // allAppointments.forEach(appt => {
-    //   if (this.weeklyAppointments[appt.day]) {
-    //     this.weeklyAppointments[appt.day].push(appt);
-    //   }
-    // });
     mockAppointments.forEach((appt) => {
       if (this.weeklyAppointments[appt.day]) {
         this.weeklyAppointments[appt.day].push(appt);
