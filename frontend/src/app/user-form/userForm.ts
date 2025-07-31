@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 import { User } from "../User";
 import { CommonModule } from "@angular/common";
+import { UserService } from "../services/userService";
 import {
   FormControl,
   FormGroup,
@@ -89,9 +90,28 @@ export class UserForm {
     email: new FormControl("", [Validators.required, Validators.email]),
   });
 
+  constructor(private userService: UserService) {}
+
+  addUser(user: User) {
+    this.userService.postUser(user).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.userAdded.emit(res);
+        this.userForm.reset();
+      },
+      error: (err: Error) => {
+        console.error("Error loading users:", err);
+      },
+      complete: () => {
+        console.log("User fetching complete.");
+      },
+    });
+  }
+
   onSubmit(): void {
     if (this.userForm.valid) {
-      this.userAdded.emit(this.userForm.value as User);
+      this.addUser(this.userForm.value as User);
+
       this.userForm.reset();
     } else {
       this.userForm.markAllAsTouched;

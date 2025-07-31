@@ -40,9 +40,8 @@ export class Scheduler implements OnInit {
   appointmentForm: FormGroup;
   nextId: number = 1;
   users: any[] = [];
-  // userService;
 
-  constructor(private fb: FormBuilder, private userSerivice: UserService) {
+  constructor(private fb: FormBuilder, private userService: UserService) {
     // Initialize the form with default values and validation rules
     this.appointmentForm = this.fb.group({
       day: ["", Validators.required],
@@ -54,11 +53,9 @@ export class Scheduler implements OnInit {
 
   loadUsers() {
     console.log("clicked");
-    // this.userService.getUsers();
-    this.userSerivice.getUsers().subscribe({
+    this.userService.getUsers().subscribe({
       next: (data: any[]) => {
-        // 'data' here will be the actual array of users
-        this.users = data; // Assign the fetched data to the users array
+        this.users = data;
         console.log("Users loaded successfully:", this.users);
       },
       error: (err: Error) => {

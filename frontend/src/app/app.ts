@@ -1,11 +1,11 @@
 import { Component } from "@angular/core";
 import { Scheduler } from "./scheduler/scheduler";
-import { Router, RouterOutlet } from "@angular/router";
+import { Router, RouterLink, RouterOutlet } from "@angular/router";
 
 @Component({
   selector: "app-root",
   // imports: [Scheduler],
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   template: ` <main>
     <div class="nav-bar-container">
       <header class="brand-name">
@@ -17,8 +17,8 @@ import { Router, RouterOutlet } from "@angular/router";
         />
       </header>
       <nav>
-        <a routerLink="/user-profile">User profile</a>
-        <a routerLink="/settings">Settings</a>
+        <a routerLink="/">Home</a>
+        <a routerLink="/users" routerLinkActive="active">Users</a>
       </nav>
     </div>
     <!-- <app-scheduler></app-scheduler>

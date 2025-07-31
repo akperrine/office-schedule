@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, Observable, throwError } from "rxjs";
+import { User } from "../User";
 
 @Injectable({
   providedIn: "root",
@@ -13,6 +14,12 @@ export class UserService {
   getUsers(): Observable<any[]> {
     return this.http
       .get<any[]>(this.apiUrl)
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  postUser(body: User): Observable<User> {
+    return this.http
+      .post<User>(this.apiUrl, body)
       .pipe(catchError(this.handleError.bind(this)));
   }
 
