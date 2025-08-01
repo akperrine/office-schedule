@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { User } from "../User";
 import { CommonModule } from "@angular/common";
 import { UserService } from "../services/userService";
@@ -84,6 +84,7 @@ import {
 export class UserForm {
   @Output() userAdded = new EventEmitter<User>();
   @Output() formCanceled = new EventEmitter<void>();
+  @Input() userId: number | null = null;
 
   userForm = new FormGroup({
     username: new FormControl("", Validators.required),
@@ -92,8 +93,13 @@ export class UserForm {
 
   constructor(private userService: UserService) {}
 
-  addUser(user: User) {
-    this.userService.postUser(user).subscribe({
+  addUserOnSubmit(user: User) {
+    console.log(user.id, " vs ", this.userId);
+    if (user.id !== null && user.id !== undefined) {
+      throw `id ${user.id} cannot exist for new user`;
+    }
+    console.log("from user form add on sub", user.id);
+    this.userService.addUser(user).subscribe({
       next: (res) => {
         console.log(res);
         this.userAdded.emit(res);
@@ -108,10 +114,25 @@ export class UserForm {
     });
   }
 
-  onSubmit(): void {
-    if (this.userForm.valid) {
-      this.addUser(this.userForm.value as User);
+  updateUserOnSubmit(user: User) {
+    if (user.id === null) {
+      throw "id cannot be null";
+    }
+    console.log("from user form ", user.id);
+    this.userService.updateUser(user, user.id).subscribe({});
+  }
 
+  onSubmit(): void {
+    console.log(this.userId, " this is the user id on submit");
+    let userToUpdate = this.userForm.value as User;
+    if (this.userForm.valid && this.userId) {
+      userToUpdate.id = this.userId;
+      this.updateUserOnSubmit(this.userForm.value as User);
+      this.userId = null;
+      this.userForm.reset();
+    } else if (this.userForm.valid) {
+      console.log(this.userId, " this is the user id on submit, inside");
+      this.addUserOnSubmit(this.userForm.value as User);
       this.userForm.reset();
     } else {
       this.userForm.markAllAsTouched;

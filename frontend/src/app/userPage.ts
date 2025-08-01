@@ -12,21 +12,21 @@ import { User } from "./User";
       <button (click)="loadUsers()">Get Users</button>
       @for (user of users; track user.id) {
       <ul>
-        {{
-          user.username
-        }}
+        <div>{{ user.username }}</div>
+        <button (click)="toggleEditForm(user.id)">Edit</button>
       </ul>
       }
       <div>There will be crud options here soon</div>
       <button (click)="toggleDisplayUserForm()">Add User</button>
       @if (displayUserForm) {
-      <user-form></user-form>
+      <user-form [userId]="selectedUserId"></user-form>
       }
     </div>
   `,
 })
 export class UserPage {
   displayUserForm = false;
+  selectedUserId: number | null = null;
   users: User[] = [];
 
   constructor(private userService: UserService) {}
@@ -35,8 +35,13 @@ export class UserPage {
     this.displayUserForm = !this.displayUserForm;
   }
 
+  toggleEditForm(userId: number) {
+    this.selectedUserId = userId;
+    this.displayUserForm = !this.displayUserForm;
+    console.log("from userPage ", userId);
+  }
+
   loadUsers() {
-    console.log("clicked");
     this.userService.getUsers().subscribe({
       next: (data: User[]) => {
         this.users = data;

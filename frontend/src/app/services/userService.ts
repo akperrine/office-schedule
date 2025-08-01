@@ -17,9 +17,15 @@ export class UserService {
       .pipe(catchError(this.handleError.bind(this)));
   }
 
-  postUser(body: User): Observable<User> {
+  addUser(body: User): Observable<User> {
     return this.http
       .post<User>(this.apiUrl, body)
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  updateUser(body: User, id: number): Observable<User> {
+    return this.http
+      .put<User>(`${this.apiUrl}/${id}`, body)
       .pipe(catchError(this.handleError.bind(this)));
   }
 
