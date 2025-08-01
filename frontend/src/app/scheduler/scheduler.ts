@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import "./scheduler.css";
 import { ScheduleDay } from "../scheduler-day/schedulerDay";
-import { UserService } from "../services/userService";
 
 @Component({
   selector: "app-scheduler",
@@ -19,7 +18,6 @@ import { UserService } from "../services/userService";
           [dayName]="day"
           [appointments]="weeklyAppointments[day]"
         ></scheduler-day>
-        <button (click)="loadUsers()">Get Users</button>
       </div>
     </section>
   `,
@@ -39,31 +37,14 @@ export class Scheduler implements OnInit {
   ];
   appointmentForm: FormGroup;
   nextId: number = 1;
-  users: any[] = [];
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder) {
     // Initialize the form with default values and validation rules
     this.appointmentForm = this.fb.group({
       day: ["", Validators.required],
       time: ["", Validators.required],
       title: ["", Validators.required],
       description: [""],
-    });
-  }
-
-  loadUsers() {
-    console.log("clicked");
-    this.userService.getUsers().subscribe({
-      next: (data: any[]) => {
-        this.users = data;
-        console.log("Users loaded successfully:", this.users);
-      },
-      error: (err: Error) => {
-        console.error("Error loading users:", err);
-      },
-      complete: () => {
-        console.log("User fetching complete.");
-      },
     });
   }
 
