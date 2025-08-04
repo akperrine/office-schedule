@@ -15,16 +15,21 @@ import { User } from "./User";
         <div>{{ user.username }}</div>
         <button (click)="toggleEditForm(user.id)">Edit</button>
       </ul>
-      }
-      <div>There will be crud options here soon</div>
-      <button (click)="toggleDisplayUserForm()">Add User</button>
-      @if (displayUserForm) {
+      } @if(displayEditForm) {
+      <h3>Edit User</h3>
       <user-form [userId]="selectedUserId"></user-form>
+      }
+      <button [disabled]="displayEditForm" (click)="toggleDisplayUserForm()">
+        Add User
+      </button>
+      @if (displayUserForm) {
+      <user-form></user-form>
       }
     </div>
   `,
 })
 export class UserPage {
+  displayEditForm = false;
   displayUserForm = false;
   selectedUserId: number | null = null;
   users: User[] = [];
@@ -37,7 +42,7 @@ export class UserPage {
 
   toggleEditForm(userId: number) {
     this.selectedUserId = userId;
-    this.displayUserForm = !this.displayUserForm;
+    this.displayEditForm = !this.displayEditForm;
     console.log("from userPage ", userId);
   }
 

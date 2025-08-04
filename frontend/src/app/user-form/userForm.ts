@@ -14,7 +14,6 @@ import {
   imports: [CommonModule, ReactiveFormsModule],
   template: `
     <div class="user-form-container">
-      <h3>Add New User</h3>
       <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="name">Name:</label>
@@ -70,7 +69,7 @@ import {
             [disabled]="userForm.invalid"
             class="btn btn-primary"
           >
-            Add User
+            {{ userId ? "Edit User" : "Add User" }}
           </button>
           <button type="button" (click)="onCancel()" class="btn btn-secondary">
             Cancel
