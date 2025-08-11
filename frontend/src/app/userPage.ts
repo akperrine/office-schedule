@@ -13,11 +13,11 @@ import { User } from "./User";
       @for (user of users; track user.id) {
       <ul>
         <div>{{ user.username }}</div>
-        <button (click)="toggleEditForm(user.id)">Edit</button>
+        <button (click)="toggleEditForm(user)">Edit</button>
       </ul>
       } @if(displayEditForm) {
       <h3>Edit User</h3>
-      <user-form [userId]="selectedUserId"></user-form>
+      <user-form [user]="selectedUser"></user-form>
       }
       <button [disabled]="displayEditForm" (click)="toggleDisplayUserForm()">
         Add User
@@ -32,6 +32,7 @@ export class UserPage {
   displayEditForm = false;
   displayUserForm = false;
   selectedUserId: number | null = null;
+  selectedUser: User | null = null;
   users: User[] = [];
 
   constructor(private userService: UserService) {}
@@ -40,10 +41,10 @@ export class UserPage {
     this.displayUserForm = !this.displayUserForm;
   }
 
-  toggleEditForm(userId: number) {
-    this.selectedUserId = userId;
+  toggleEditForm(clicked_user: User) {
+    this.selectedUser = clicked_user;
     this.displayEditForm = !this.displayEditForm;
-    console.log("from userPage ", userId);
+    console.log("from userPage ", this.selectedUser);
   }
 
   loadUsers() {

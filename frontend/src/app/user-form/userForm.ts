@@ -20,6 +20,7 @@ import {
           <input
             id="name"
             type="text"
+            [value]="user?.username"
             formControlName="username"
             class="form-control"
             [class.is-invalid]="
@@ -69,7 +70,7 @@ import {
             [disabled]="userForm.invalid"
             class="btn btn-primary"
           >
-            {{ userId ? "Edit User" : "Add User" }}
+            {{ user ? "Edit User" : "Add User" }}
           </button>
           <button type="button" (click)="onCancel()" class="btn btn-secondary">
             Cancel
@@ -83,7 +84,17 @@ import {
 export class UserForm {
   @Output() userAdded = new EventEmitter<User>();
   @Output() formCanceled = new EventEmitter<void>();
-  @Input() userId: number | null = null;
+  // @Input() userId: number | null = null;
+  private _user: User | null | undefined;
+  @Input() set user(user: User | null | undefined) {
+    if (user) {
+      this._user = user;
+      console.log("hit pathc", this._user);
+      this.userForm.patchValue(user);
+    } else {
+      this.userForm.reset();
+    }
+  }
 
   userForm = new FormGroup({
     username: new FormControl("", Validators.required),
@@ -93,7 +104,7 @@ export class UserForm {
   constructor(private userService: UserService) {}
 
   addUserOnSubmit(user: User) {
-    console.log(user.id, " vs ", this.userId);
+    console.log(user.id, " vs ", user);
     if (user.id !== null && user.id !== undefined) {
       throw `id ${user.id} cannot exist for new user`;
     }
@@ -122,15 +133,15 @@ export class UserForm {
   }
 
   onSubmit(): void {
-    console.log(this.userId, " this is the user id on submit");
+    console.log(this._user, " this is the user id on submit");
     let userToUpdate = this.userForm.value as User;
-    if (this.userForm.valid && this.userId) {
-      userToUpdate.id = this.userId;
+    if (this.userForm.valid && this._user?.id) {
+      userToUpdate.id = this._user.id;
       this.updateUserOnSubmit(this.userForm.value as User);
-      this.userId = null;
+      this._user = null;
       this.userForm.reset();
     } else if (this.userForm.valid) {
-      console.log(this.userId, " this is the user id on submit, inside");
+      console.log(this.user, " this is the user id on submit, inside");
       this.addUserOnSubmit(this.userForm.value as User);
       this.userForm.reset();
     } else {
