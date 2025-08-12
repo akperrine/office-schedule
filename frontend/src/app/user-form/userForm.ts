@@ -20,7 +20,6 @@ import {
           <input
             id="name"
             type="text"
-            [value]="user?.username"
             formControlName="username"
             class="form-control"
             [class.is-invalid]="
@@ -70,7 +69,7 @@ import {
             [disabled]="userForm.invalid"
             class="btn btn-primary"
           >
-            {{ user ? "Edit User" : "Add User" }}
+            {{ _userSelected ? "Edit User" : "Add User" }}
           </button>
           <button type="button" (click)="onCancel()" class="btn btn-secondary">
             Cancel
@@ -82,14 +81,12 @@ import {
   styleUrls: [],
 })
 export class UserForm {
-  @Output() userAdded = new EventEmitter<User>();
+  @Output() userSubmitted = new EventEmitter<User>();
   @Output() formCanceled = new EventEmitter<void>();
-  // @Input() userId: number | null = null;
-  private _user: User | null | undefined;
+  _userSelected: User | null | undefined;
   @Input() set user(user: User | null | undefined) {
     if (user) {
-      this._user = user;
-      console.log("hit pathc", this._user);
+      this._userSelected = user;
       this.userForm.patchValue(user);
     } else {
       this.userForm.reset();
@@ -112,7 +109,7 @@ export class UserForm {
     this.userService.addUser(user).subscribe({
       next: (res) => {
         console.log(res);
-        this.userAdded.emit(res);
+        this.userSubmitted.emit(res);
         this.userForm.reset();
       },
       error: (err: Error) => {
@@ -129,19 +126,28 @@ export class UserForm {
       throw "id cannot be null";
     }
     console.log("from user form ", user.id);
-    this.userService.updateUser(user, user.id).subscribe({});
+    this.userService.updateUser(user, user.id).subscribe({
+      next: (res) => {
+        this.userSubmitted.emit(res);
+        this.userForm.reset();
+      },
+      error: (err: Error) => {
+        console.error("Error loading users:", err);
+      },
+      complete: () => {
+        console.log("User fetching complete.");
+      },
+    });
   }
 
   onSubmit(): void {
-    console.log(this._user, " this is the user id on submit");
     let userToUpdate = this.userForm.value as User;
-    if (this.userForm.valid && this._user?.id) {
-      userToUpdate.id = this._user.id;
+    if (this.userForm.valid && this._userSelected?.id) {
+      userToUpdate.id = this._userSelected.id;
       this.updateUserOnSubmit(this.userForm.value as User);
-      this._user = null;
+      this._userSelected = null;
       this.userForm.reset();
     } else if (this.userForm.valid) {
-      console.log(this.user, " this is the user id on submit, inside");
       this.addUserOnSubmit(this.userForm.value as User);
       this.userForm.reset();
     } else {

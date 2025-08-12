@@ -17,7 +17,10 @@ import { User } from "./User";
       </ul>
       } @if(displayEditForm) {
       <h3>Edit User</h3>
-      <user-form [user]="selectedUser"></user-form>
+      <user-form
+        [user]="selectedUser"
+        (userSubmitted)="toggleEditForm(selectedUser)"
+      ></user-form>
       }
       <button [disabled]="displayEditForm" (click)="toggleDisplayUserForm()">
         Add User
@@ -31,7 +34,6 @@ import { User } from "./User";
 export class UserPage {
   displayEditForm = false;
   displayUserForm = false;
-  selectedUserId: number | null = null;
   selectedUser: User | null = null;
   users: User[] = [];
 
@@ -41,7 +43,7 @@ export class UserPage {
     this.displayUserForm = !this.displayUserForm;
   }
 
-  toggleEditForm(clicked_user: User) {
+  toggleEditForm(clicked_user: User | null) {
     this.selectedUser = clicked_user;
     this.displayEditForm = !this.displayEditForm;
     console.log("from userPage ", this.selectedUser);
