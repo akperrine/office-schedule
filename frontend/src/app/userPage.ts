@@ -26,7 +26,7 @@ import { User } from "./User";
         Add User
       </button>
       @if (displayUserForm) {
-      <user-form></user-form>
+      <user-form (userSubmitted)="toggleDisplayUserForm()"></user-form>
       }
     </div>
   `,
