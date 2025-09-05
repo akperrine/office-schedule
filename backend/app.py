@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
 import psycopg2
-from psycopg2 import extras 
+from flask_cors import CORS
+from psycopg2 import extras
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 # Database Configuration 
 DB_HOST = os.environ.get('DB_HOST', 'localhost')
@@ -32,6 +34,7 @@ def get_users():
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         cur.execute('SELECT id, username, email FROM users ORDER BY id;')
         users = cur.fetchall()
+        print('hit')
         cur.close()
         return jsonify(users)
     except Exception as e:
@@ -61,6 +64,7 @@ def get_user(user_id):
     finally:
         if conn:
             conn.close()
+
 
 @app.route('/users', methods=['POST'])
 def create_user():

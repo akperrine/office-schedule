@@ -4,7 +4,8 @@ jspm_packages
 bower_components
 app/**/*.js
 app/**/*.map
-
+.angular/*
+dist/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
