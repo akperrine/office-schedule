@@ -27,5 +27,14 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
     "_enabledBlockTypes": ["if", "for"]
-  }
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }

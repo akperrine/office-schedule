@@ -1,14 +1,19 @@
 import { Component } from "@angular/core";
+import {
+  MatSlideToggleModule,
+  MatSlideToggle,
+} from "@angular/material/slide-toggle";
 import { UserForm } from "./user-form/userForm";
 import { UserService } from "./services/userService";
 import { User } from "./User";
 
 @Component({
   selector: "user-page",
-  imports: [UserForm],
+  imports: [UserForm, MatSlideToggle],
   template: `
     <div>
-      <h2>User page</h2>
+      <mat-slide-toggle>Toggle me!</mat-slide-toggle>
+      <h2 class="mt-4">User page</h2>
       <button (click)="loadUsers()">Get Users</button>
       @for (user of users; track user.id) {
       <ul>

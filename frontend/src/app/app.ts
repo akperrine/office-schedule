@@ -21,6 +21,7 @@ import { Router, RouterLink, RouterOutlet } from "@angular/router";
         <a routerLink="/users" routerLinkActive="active">Users</a>
       </nav>
     </div>
+
     <!-- <app-scheduler></app-scheduler>
     <section class="content"></section> -->
     <router-outlet></router-outlet>
