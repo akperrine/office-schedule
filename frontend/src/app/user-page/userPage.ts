@@ -3,9 +3,9 @@ import {
   MatSlideToggleModule,
   MatSlideToggle,
 } from "@angular/material/slide-toggle";
-import { UserForm } from "./user-form/userForm";
-import { UserService } from "./services/userService";
-import { User } from "./User";
+import { UserForm } from "../user-form/userForm";
+import { UserService } from "../services/userService";
+import { User } from "../User";
 
 @Component({
   selector: "user-page",
@@ -14,11 +14,13 @@ import { User } from "./User";
     <div>
       <mat-slide-toggle>Toggle me!</mat-slide-toggle>
       <h2 class="mt-4">User page</h2>
-      <button (click)="loadUsers()">Get Users</button>
+      <button class="btn-get-users btn-primary" (click)="loadUsers()">
+        Get Users
+      </button>
       @for (user of users; track user.id) {
-      <ul>
+      <ul class="user-list">
         <div>{{ user.username }}</div>
-        <button (click)="toggleEditForm(user)">Edit</button>
+        <button class="btn-primary" (click)="toggleEditForm(user)">Edit</button>
       </ul>
       } @if(displayEditForm) {
       <h3>Edit User</h3>
@@ -27,7 +29,11 @@ import { User } from "./User";
         (userSubmitted)="toggleEditForm(selectedUser)"
       ></user-form>
       }
-      <button [disabled]="displayEditForm" (click)="toggleDisplayUserForm()">
+      <button
+        class="btn-primary"
+        [disabled]="displayEditForm"
+        (click)="toggleDisplayUserForm()"
+      >
         Add User
       </button>
       @if (displayUserForm) {
