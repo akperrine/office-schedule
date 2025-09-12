@@ -17,6 +17,7 @@ import {
   provideHttpClientTesting,
 } from "@angular/common/http/testing";
 import { User } from "../User";
+import "zone.js";
 
 describe("User Page tests", () => {
   let component: UserPage;
@@ -26,7 +27,7 @@ describe("User Page tests", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       providers: [
-        provideZonelessChangeDetection(),
+        // provideZonelessChangeDetection(),
         provideRouter([{ path: "users", component: UserPage }]),
         provideHttpClient(),
         provideHttpClientTesting(),
@@ -38,7 +39,7 @@ describe("User Page tests", () => {
     fixture = TestBed.createComponent(UserPage);
     component = fixture.componentInstance;
     httpMock = TestBed.inject(HttpTestingController);
-    // fixture.detectChanges(); //need to debug with zone/zoneless
+    fixture.detectChanges();
   });
 
   it("should create", () => {
@@ -75,17 +76,12 @@ describe("User Page tests", () => {
     );
     expect(req.request.method).toBe("GET");
 
-    // // // Provide the mock data as a response
     req.flush(mockUsers);
-
-    // // // Trigger change detection to update the view
     fixture.detectChanges();
 
-    // // Assert that the component's users array is populated
     expect(component.users.length).toBe(2);
     expect(component.users[0].username).toBe("testuser1");
 
-    // // Assert that the template renders the users
     const compiled = fixture.nativeElement as HTMLElement;
     const userList = compiled.querySelectorAll(".user-list");
     console.log(userList.length);

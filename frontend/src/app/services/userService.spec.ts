@@ -7,6 +7,7 @@ import { UserService } from "./userService";
 import { TestBed } from "@angular/core/testing";
 import { firstValueFrom } from "rxjs";
 import { provideZonelessChangeDetection } from "@angular/core";
+import "zone.js";
 
 const MOCK_USERS = [
   { id: 1, username: "Alice", email: "alice@test.com" },
@@ -16,12 +17,7 @@ const MOCK_USERS = [
 describe("User Service", async () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideZonelessChangeDetection(),
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        UserService,
-      ],
+      providers: [provideHttpClient(), provideHttpClientTesting(), UserService],
     });
   });
 
